@@ -378,3 +378,92 @@ def MSCNNLSTM(input_shape, num_classes):
 
     return model
 
+# Basic CNN Model
+def CNN(input_shape, num_classes):
+    # Input layer
+    inputs = Input(shape=input_shape)
+
+    # Main feature extraction layers
+    conv1d_1 = Conv1D(filters=10, kernel_size=8, activation="relu", padding="same", strides=1)(inputs)
+    maxpool1d_1 = MaxPooling1D(pool_size=2, strides=2, padding="same")(conv1d_1)
+    conv1d_2 = Conv1D(filters=20, kernel_size=16, activation="relu", padding="same", strides=1)(maxpool1d_1)
+    maxpool1d_2 = MaxPooling1D(pool_size=2, strides=2, padding="same")(conv1d_2)
+
+    # Head 1
+    conv1d_1a = Conv1D(filters=40, kernel_size=32, activation="relu", padding="same", strides=1)(maxpool1d_2)
+    maxpool1d_1a = MaxPooling1D(pool_size=2, strides=2)(conv1d_1a)
+    flatten1 = Flatten()(maxpool1d_1a)
+    dense_1 = Dense(64, activation="relu")(flatten1)
+    outputs = Dense(num_classes, activation="softmax")(dense_1)
+
+    optimizer = optimizers.Adam(learning_rate=1e-4,beta_1=0.9,beta_2=0.99,epsilon=1e-08,amsgrad=False,name="Adam",)
+
+    model = models.Model(inputs, outputs)
+    model.compile(loss="categorical_crossentropy",optimizer=optimizer,metrics=["accuracy"],)
+    return model
+
+# CNN-Res Model
+def CNNRes(input_shape, num_classes):
+    # Input layer
+    inputs = Input(shape=input_shape)
+
+    # Main feature extraction layers
+    conv1d_1 = Conv1D(filters=10, kernel_size=8, activation="relu", padding="same", strides=1)(inputs)
+    maxpool1d_1 = MaxPooling1D(pool_size=2, strides=2, padding="same")(conv1d_1)
+    conv1d_2 = Conv1D(filters=20, kernel_size=16, activation="relu", padding="same", strides=1)(maxpool1d_1)
+    maxpool1d_2 = MaxPooling1D(pool_size=2, strides=2, padding="same")(conv1d_2)
+
+    # Head 1
+    conv1d_1a = Conv1D(filters=40, kernel_size=32, activation="relu", padding="same", strides=1)(maxpool1d_2)
+    maxpool1d_1a = MaxPooling1D(pool_size=2, strides=2)(conv1d_1a)
+    res1d_1a = Residual1DConv(filters=40, kernel_size=3, activation="relu")(maxpool1d_1a)
+    maxpool1d_2a = MaxPooling1D(pool_size=2, strides=2, padding="same")(res1d_1a)
+
+    flatten1 = Flatten()(maxpool1d_2a)
+    dense_1 = Dense(64, activation="relu")(flatten1)
+    outputs = Dense(num_classes, activation="softmax")(dense_1)
+    optimizer = optimizers.Adam(learning_rate=1e-4,beta_1=0.9,beta_2=0.99,epsilon=1e-08,amsgrad=False,name="Adam")
+
+    model = models.Model(inputs, outputs)
+    model.compile(loss="categorical_crossentropy",optimizer=optimizer,metrics=["accuracy"])
+    return model
+
+# CNN-LSTM Model
+def CNNLSTM(input_shape, num_classes):
+    # Input layer
+    inputs = Input(shape=input_shape)
+
+    # Main feature extraction layers
+    conv1d_1 = Conv1D(filters=10, kernel_size=8, activation="relu", padding="same", strides=1)(inputs)
+    maxpool1d_1 = MaxPooling1D(pool_size=2, strides=2, padding="same")(conv1d_1)
+
+    lstm_1a = LSTM(40, return_sequences=True)(maxpool1d_1)
+    maxpool1d_3 = MaxPooling1D(pool_size=2, strides=2, padding="same")(lstm_1a)
+    flatten1 = Flatten()(maxpool1d_3)
+    dense_1 = Dense(64, activation="relu")(flatten1)
+    outputs = Dense(num_classes, activation="softmax")(dense_1)
+
+    optimizer = optimizers.Adam(learning_rate=1e-4,beta_1=0.9,beta_2=0.99,epsilon=1e-08,amsgrad=False,name="Adam")
+
+    model = models.Model(inputs, outputs)
+    model.compile(loss="categorical_crossentropy",optimizer=optimizer,metrics=["accuracy"])
+    return model
+
+# CNN-MHA Model
+def CNNMHA(input_shape, num_classes):
+    # Input layer
+    inputs = Input(shape=input_shape)
+
+    # Main feature extraction layers
+    conv1d_1 = Conv1D(filters=10, kernel_size=8, activation="relu", padding="same", strides=1)(inputs)
+    maxpool1d_1 = MaxPooling1D(pool_size=2, strides=2, padding="same")(conv1d_1)
+    selfAttention1a = MultiHeadAttention(num_heads=10, key_dim=20)(maxpool1d_1, maxpool1d_1)
+    maxpool1d_3 = MaxPooling1D(pool_size=2, strides=2, padding="same")(selfAttention1a)
+    flatten1 = Flatten()(maxpool1d_3)
+    dense_1 = Dense(64, activation="relu")(flatten1)
+    outputs = Dense(num_classes, activation="softmax")(dense_1)
+
+    optimizer = optimizers.Adam(learning_rate=1e-5,beta_1=0.9,beta_2=0.99,epsilon=1e-08,amsgrad=False,name="Adam")
+    model = models.Model(inputs, outputs)
+    model.compile(loss="categorical_crossentropy",optimizer=optimizer,metrics=["accuracy"])
+    return model
