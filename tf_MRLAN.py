@@ -121,8 +121,8 @@ class MidPointResidual1DConv(tf.keras.layers.Layer):
 # MSCMpResCNN
 # MSCNNLSTM
 
-# MultiHead Model
-def MultiHead(input_shape, num_classes):
+# MRLAN Model
+def MRLAN(input_shape, num_classes):
     # Input layer
     inputs = Input(shape=input_shape)
 
