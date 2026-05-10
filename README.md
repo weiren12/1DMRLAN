@@ -26,7 +26,7 @@ Names of Models in the table below are the same as the names in the function.
 | 4. | `CNNMHA` | CNN + Multiheaded Self-Attention  |
 
 # Env Version and Software
-* Software: VS Code 
+* Software: VS Code + LabVIEW 2025
 * Python: 3.10
 * PyTorch Version: 2.9.1 
 * Tensorflow Version: 2.18.0
