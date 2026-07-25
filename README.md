@@ -36,5 +36,6 @@ Names of Models in the table below are the same as the names in the function.
 Name: Sia Wei Ren\
 Email: [weiren1212@gmail.com](weiren1212@gmail.com)
 
-
+# Reference
+Title: Real-Time Rotating Machinery Fault Diagnosis System Based on Multiscale Convolution Attention Network and Vibration Data
 If you find the code or information is useful, we sincerely appreciate you in citing our article!
