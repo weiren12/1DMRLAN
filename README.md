@@ -37,5 +37,5 @@ Name: Sia Wei Ren\
 Email: [weiren1212@gmail.com](weiren1212@gmail.com)
 
 # Reference
-Title: Real-Time Rotating Machinery Fault Diagnosis System Based on Multiscale Convolution Attention Network and Vibration Data
+Sia, W.R., Mohd Saufi, M.S.R., Isham, M.F. et al. Real-time rotating machinery fault diagnosis system based on multiscale convolution attention network and vibration data. J Braz. Soc. Mech. Sci. Eng. 48, 839 (2026). https://doi.org/10.1007/s40430-026-06771-2
 If you find the code or information is useful, we sincerely appreciate you in citing our article!
